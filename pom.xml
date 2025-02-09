@@ -7,7 +7,14 @@
     <groupId>org.example</groupId>
     <artifactId>TestLeafAppiumFeb2025</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>9.4.0</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>

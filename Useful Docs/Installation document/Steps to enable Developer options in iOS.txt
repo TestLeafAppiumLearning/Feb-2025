@@ -1,0 +1,22 @@
+Steps to enable "Developer Options" in iOS with mac
+
+1. Connect your iOS Device with the Mac laptop using Apple Certified cable
+2. Open Xcode --> Navigate to Window --> Devices and Simulators
+3. Follow the instructions in Devices tab
+      1. You might need to enable Developer Mode in Settings --> Privacy and Security (if asked)
+      2. You might need to enable UI Automation in Settings --> Developer
+      3. You might need to Trust the application (max 2 times) (if asked)
+
+
+Steps to enable "Developer Options" in iOS without mac
+
+1. Install "Apple Developer" application from App Store
+2. Purchase Developer license from Apple for your Apple Id by paying developer fess/charges ($100 for individuals / $ 1000 for companies)
+3. Login with the Developer Apple Id in "Apple Developer" application
+4. Follow the instructions in provided in the application
+      1. You might need to enable Developer Mode in Settings --> Privacy and Security (if asked)
+      2. You might need to enable UI Automation in Settings --> Developer
+      3. You might need to Trust the application (max 2 times) (if asked)
+
+Steps to enable "Developer Options" for WebView
+1. Settings --> Safari --> Advanced --> Web Inspector has to be enabled (not applicable for Simulators)
