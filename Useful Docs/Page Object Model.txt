@@ -1,0 +1,24 @@
+Rules
+1. Every page should be an individual class
+2. There should be a re-usable methods class
+3. Every page class should extend this re-usable methods class
+4. Every action should be a separate method
+5. Every method should have a return type and it should return to the page where it lands post completion of that method
+6. Verify the page landed is correct/valid
+
+Pre - Condition
+1. My maven project is created
+
+src/main/java -- files that are needed for my test cases to execute
+src/main/resources -- supporting files needed by src/main/java (object repo)
+src/test/java -- test cases (files which run our test cases)
+src/test/resources -- supporting files needed by src/test/java (test data)
+
+POM
+1. Create a re-usable method (Generic Wrappers)
+2. Create my pages that are part of my app
+3. Extend my GenericWrappers in all the pages
+4. Create all action as a separate method
+5. All methods should return to the page where it lands post completion of that method
+6. Implement all the methods writtern (or) throw exception if the method is not implemented
+7. Verify the page landed is correct/valid

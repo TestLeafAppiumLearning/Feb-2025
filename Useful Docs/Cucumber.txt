@@ -1,0 +1,43 @@
+Cucumber
+
+Rules
+1. Project created
+2. Feature file for TC
+3. Have those steps defined writtern in feature file
+
+Manual testing
+suite
+	scenarios
+		test cases
+			Steps
+
+TestNG
+suite
+	test
+		class
+			method
+
+Cucumber
+Project
+	Feature
+		Scenario
+			Steps -Gherkin
+
+Gherkin Keywords
+Given -- Pre condition
+When -- Test step action to be performed
+Then -- Expected result
+And -- Supporting keyword which resemble the previous
+But -- Expected result for negative
+* -- Wild card or any
+
+
+How to implement
+1. Maven project created with cucumber dep and TestNG
+src/main/java -- Step def
+src/main/resources
+src/test/java -- TestRunner
+src/test/resources -- Feature files
+2. Create the feature files
+3. Implement/Define the steps in the feature file
+
