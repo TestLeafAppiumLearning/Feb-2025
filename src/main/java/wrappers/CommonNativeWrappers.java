@@ -26,7 +26,7 @@ import java.util.Set;
 @SuppressWarnings("ALL")
 public class CommonNativeWrappers {
     public static final int MAX_SCROLL = 10;
-    public AppiumDriver driver;
+    public static AppiumDriver driver;
 
     // To launch the application (Native/Hybrid)
     public boolean launchApp(String platformName, String udid, String appPackage, String appActivity,
@@ -577,6 +577,11 @@ public class CommonNativeWrappers {
     // To enter data in web element
     public boolean enterValue(WebElement ele, String data) {
         return enterValue(ele, data, true);
+    }
+
+    public boolean clearValue(WebElement ele) {
+        ele.clear();
+        return true;
     }
 
     public boolean enterValue(WebElement ele, String data, boolean hideKeyboard) {
