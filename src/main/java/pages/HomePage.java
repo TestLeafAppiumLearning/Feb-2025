@@ -1,6 +1,5 @@
 package pages;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
@@ -16,7 +15,7 @@ public class HomePage extends GenericWrappers {
     WebElement usersNameInHomePage;
 
     public HomePage() {
-        PageFactory.initElements(new AppiumFieldDecorator(getDriver()),this);
+        PageFactory.initElements(new AppiumFieldDecorator(getDriver()), this);
         eleIsDisplayed(usersNameInHomePage);
     }
 

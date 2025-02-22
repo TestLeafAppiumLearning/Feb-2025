@@ -27,6 +27,7 @@ import java.util.Set;
 public class CommonNativeWrappers {
     public static final int MAX_SCROLL = 10;
     public static ThreadLocal<AppiumDriver> driver = new ThreadLocal<>();
+
     public AppiumDriver getDriver() {
         return driver.get();
     }

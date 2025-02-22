@@ -9,16 +9,16 @@ import org.testng.annotations.Parameters;
 import wrappers.GenericWrappers;
 
 @CucumberOptions(features = "src/test/resources/features",
-        glue = "pages")
+        glue = "pages", publish = true)
 
 public class TestRunner extends AbstractTestNGCucumberTests {
     @Parameters({"app", "appPackage", "appActivity", "udid", "systemPort"})
     @BeforeMethod
     public void bm(String app, String appPackage, String appActivity, @Optional("") String udid, @Optional("") String systemPort) {
         new GenericWrappers()
-                .launchAndroidAppInParallel(udid,appPackage,appActivity,
-                        "UiAutomator2","","",
-                        systemPort,app);
+                .launchAndroidAppInParallel(udid, appPackage, appActivity,
+                        "UiAutomator2", "", "",
+                        systemPort, app);
     }
 
     @AfterMethod

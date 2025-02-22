@@ -1,6 +1,5 @@
 package pages;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
@@ -20,11 +19,11 @@ public class LoginPage extends GenericWrappers {
     WebElement passwordTxtBox;
 
     @AndroidFindBy(className = "android.widget.Button")
-    @iOSXCUITFindBy(id="")
+    @iOSXCUITFindBy(id = "")
     WebElement loginBtn;
 
     public LoginPage() {
-        PageFactory.initElements(new AppiumFieldDecorator(getDriver()),this);
+        PageFactory.initElements(new AppiumFieldDecorator(getDriver()), this);
         eleIsDisplayed(userNameTxtBox);
     }
 
