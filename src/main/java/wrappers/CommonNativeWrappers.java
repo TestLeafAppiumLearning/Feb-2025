@@ -26,7 +26,7 @@ import java.util.Set;
 @SuppressWarnings("ALL")
 public class CommonNativeWrappers {
     public static final int MAX_SCROLL = 10;
-    public static AppiumDriver driver;
+    public AppiumDriver driver;
 
     // To launch the application (Native/Hybrid)
     public boolean launchApp(String platformName, String udid, String appPackage, String appActivity,

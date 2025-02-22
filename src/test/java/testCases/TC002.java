@@ -7,18 +7,14 @@ import pages.LoginPage;
 import wrappers.GenericWrappers;
 import wrappers.ProjectSpecificWrappers;
 
-public class TC001 extends ProjectSpecificWrappers {
-
+public class TC002 extends ProjectSpecificWrappers {
     @Test
     public void runCode() {
         new LoginPage(driver)
                 .clearUsernameTxt()
-                .enterUsername("rajkumar@testleaf.com")
+                .enterUsername("lokesh")
                 .clearPasswordTxt()
                 .enterPassword("Leaf@123")
-                .clickLoginButton()
-                .verifyUsersNameIsDisplayed()
-                .verifyUsersNameIsDisplayed();
+                .clickLoginButtonForFailures();
     }
-
 }
