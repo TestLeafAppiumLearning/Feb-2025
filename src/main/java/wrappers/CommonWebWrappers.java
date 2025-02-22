@@ -48,7 +48,7 @@ public class CommonWebWrappers extends CommonNativeWrappers {
                 // Mandatory desired capabilities
                 dc.setCapability("appium:browserName", "Chrome");
                 dc.setCapability("appium:automationName", "UiAutomator2");
-                driver = new AndroidDriver(new URI("http://127.0.0.1:4723").toURL(), dc);
+                driver.set(new AndroidDriver(new URI("http://127.0.0.1:4723").toURL(), dc));
             } else if (platformName.equalsIgnoreCase("ios")) {
                 // For web app parallel testing
                 if (!wdaLocalPort.isEmpty()) {
@@ -65,10 +65,10 @@ public class CommonWebWrappers extends CommonNativeWrappers {
                 dc.setCapability("appium:autoAcceptAlerts", true);
                 dc.setCapability("appium:startIWDP", true);
                 dc.setCapability("appium:nativeWebTap", true);
-                driver = new IOSDriver(new URI("http://127.0.0.1:4723").toURL(), dc);
+                driver.set(new IOSDriver(new URI("http://127.0.0.1:4723").toURL(), dc));
             }
-            driver.get(URL);
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+            getDriver().get(URL);
+            getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (URISyntaxException e) {
@@ -80,14 +80,14 @@ public class CommonWebWrappers extends CommonNativeWrappers {
     // To switch the context as WEB-VIEW (Note: Not recommended for Android)
     public void switchWebView() {
         try {
-            Set<String> contextNames = ((SupportsContextSwitching) driver).getContextHandles();
+            Set<String> contextNames = ((SupportsContextSwitching) getDriver()).getContextHandles();
             for (String contextName : contextNames) {
                 if (contextName.contains("WEBVIEW")) {
-                    ((SupportsContextSwitching) driver).context(contextName);
+                    ((SupportsContextSwitching) getDriver()).context(contextName);
                     break;
                 }
             }
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+            getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,7 +96,7 @@ public class CommonWebWrappers extends CommonNativeWrappers {
     // To scroll down in browser
     public boolean scrollDownInBrowser(int pixelsToBeScrolled) {
         try {
-            JavascriptExecutor jse = driver;
+            JavascriptExecutor jse = getDriver();
             jse.executeScript("window.scrollBy(0," + pixelsToBeScrolled + "\")", "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,7 +107,7 @@ public class CommonWebWrappers extends CommonNativeWrappers {
     // To navigate back in browser
     public boolean navigateBackInBrowser() {
         try {
-            driver.navigate().back();
+            getDriver().navigate().back();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -116,16 +116,16 @@ public class CommonWebWrappers extends CommonNativeWrappers {
 
     // To load the given URL
     public boolean loadURL(String url) {
-        driver.navigate().to(url);
+        getDriver().navigate().to(url);
         return true;
     }
 
     // To switch to last window
     public boolean switchToLastWindow() {
         sleep(5000);
-        Set<String> windowHandles = driver.getWindowHandles();
+        Set<String> windowHandles = getDriver().getWindowHandles();
         for (String string : windowHandles) {
-            driver.switchTo().window(string);
+            getDriver().switchTo().window(string);
         }
         return true;
     }
@@ -133,9 +133,9 @@ public class CommonWebWrappers extends CommonNativeWrappers {
     // To switch to first window
     public boolean switchToFirstWindow() {
         sleep(5000);
-        Set<String> windowHandles = driver.getWindowHandles();
+        Set<String> windowHandles = getDriver().getWindowHandles();
         for (String string : windowHandles) {
-            driver.switchTo().window(string);
+            getDriver().switchTo().window(string);
             break;
         }
         return true;

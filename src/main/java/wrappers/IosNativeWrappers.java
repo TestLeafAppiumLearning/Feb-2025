@@ -23,7 +23,7 @@ public class IosNativeWrappers extends AndroidWebWrappers {
         params.put("order", "next");
         params.put("offset", 0.15);
         params.put("element", getWebElement(locator, locatorValue));
-        driver.executeScript("mobile: selectPickerWheelValue", params);
+        getDriver().executeScript("mobile: selectPickerWheelValue", params);
         return true;
     }
 
@@ -32,7 +32,7 @@ public class IosNativeWrappers extends AndroidWebWrappers {
         params.put("order", "next");
         params.put("offset", 0.15);
         params.put("element", ele);
-        driver.executeScript("mobile: selectPickerWheelValue", params);
+        getDriver().executeScript("mobile: selectPickerWheelValue", params);
         return true;
     }
 
@@ -41,7 +41,7 @@ public class IosNativeWrappers extends AndroidWebWrappers {
         params.put("order", "previous");
         params.put("offset", 0.15);
         params.put("element", getWebElement(locator, locatorValue));
-        driver.executeScript("mobile: selectPickerWheelValue", params);
+        getDriver().executeScript("mobile: selectPickerWheelValue", params);
         return true;
     }
 
@@ -50,7 +50,7 @@ public class IosNativeWrappers extends AndroidWebWrappers {
         params.put("order", "previous");
         params.put("offset", 0.15);
         params.put("element", ele);
-        driver.executeScript("mobile: selectPickerWheelValue", params);
+        getDriver().executeScript("mobile: selectPickerWheelValue", params);
         return true;
     }
 

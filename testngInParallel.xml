@@ -8,16 +8,14 @@
         <parameter name="udid" value="emulator-5554"></parameter>
         <parameter name="systemPort" value="9876"></parameter>
         <classes>
-            <class name="testCases.TC001"/>
-            <class name="testCases.TC002"/>
+            <class name="testRunner.TestRunner"/>
         </classes>
     </test>
     <test verbose="2" preserve-order="true" name="phone2">
         <parameter name="udid" value="emulator-5556"></parameter>
         <parameter name="systemPort" value="9877"></parameter>
         <classes>
-            <class name="testCases.TC001"/>
-            <class name="testCases.TC002"/>
+            <class name="testRunner.TestRunner"/>
         </classes>
     </test>
 </suite>

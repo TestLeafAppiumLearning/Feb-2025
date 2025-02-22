@@ -26,7 +26,10 @@ import java.util.Set;
 @SuppressWarnings("ALL")
 public class CommonNativeWrappers {
     public static final int MAX_SCROLL = 10;
-    public AppiumDriver driver;
+    public static ThreadLocal<AppiumDriver> driver = new ThreadLocal<>();
+    public AppiumDriver getDriver() {
+        return driver.get();
+    }
 
     // To launch the application (Native/Hybrid)
     public boolean launchApp(String platformName, String udid, String appPackage, String appActivity,
@@ -80,7 +83,7 @@ public class CommonNativeWrappers {
                 // Comment the below line based on need. This capability will grant all the permission before the app is launched using ADB.
                 // Note: This capability will not work when noReset is set as true
                 dc.setCapability("appium:autoGrantPermissions", true);
-                driver = new AndroidDriver(new URI("http://127.0.0.1:4723").toURL(), dc);
+                driver.set(new AndroidDriver(new URI("http://127.0.0.1:4723").toURL(), dc));
             } else if (platformName.equalsIgnoreCase("ios")) {
                 // For hybrid/native app parallel testing
                 if (!wdaLocalPort.isEmpty()) {
@@ -99,9 +102,9 @@ public class CommonNativeWrappers {
                 }
                 // Comment the below line based on need
                 dc.setCapability("appium:autoAcceptAlerts", true);
-                driver = new IOSDriver(new URI("http://127.0.0.1:4723").toURL(), dc);
+                driver.set(new IOSDriver(new URI("http://127.0.0.1:4723").toURL(), dc));
             }
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+            getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,7 +115,7 @@ public class CommonNativeWrappers {
     public boolean installApp(String appPath) {
         boolean bInstallSuccess = false;
         try {
-            ((InteractsWithApps) driver).installApp(System.getProperty("user.dir") + appPath);
+            ((InteractsWithApps) getDriver()).installApp(System.getProperty("user.dir") + appPath);
             bInstallSuccess = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,7 +127,7 @@ public class CommonNativeWrappers {
     public boolean removeApp(String bundleIdOrAppPackage) {
         boolean bInstallSuccess = false;
         try {
-            ((InteractsWithApps) driver).removeApp(bundleIdOrAppPackage);
+            ((InteractsWithApps) getDriver()).removeApp(bundleIdOrAppPackage);
             bInstallSuccess = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,10 +139,10 @@ public class CommonNativeWrappers {
     public boolean verifyAndInstallApp(String bundleIdOrAppPackage, String appPath) {
         boolean bInstallSuccess = false;
         try {
-            if (((InteractsWithApps) driver).isAppInstalled(bundleIdOrAppPackage)) {
-                ((InteractsWithApps) driver).removeApp(bundleIdOrAppPackage);
+            if (((InteractsWithApps) getDriver()).isAppInstalled(bundleIdOrAppPackage)) {
+                ((InteractsWithApps) getDriver()).removeApp(bundleIdOrAppPackage);
             }
-            ((InteractsWithApps) driver).installApp(System.getProperty("user.dir") + appPath);
+            ((InteractsWithApps) getDriver()).installApp(System.getProperty("user.dir") + appPath);
             bInstallSuccess = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,7 +162,7 @@ public class CommonNativeWrappers {
     // To print the context available in application
     public void printContext() {
         try {
-            Set<String> contexts = ((SupportsContextSwitching) driver).getContextHandles();
+            Set<String> contexts = ((SupportsContextSwitching) getDriver()).getContextHandles();
             for (String context : contexts) {
                 System.out.println(context);
             }
@@ -171,8 +174,8 @@ public class CommonNativeWrappers {
     // To switch the context available in application
     public void switchContext(String context) {
         try {
-            ((SupportsContextSwitching) driver).context(context);
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+            ((SupportsContextSwitching) getDriver()).context(context);
+            getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -182,14 +185,14 @@ public class CommonNativeWrappers {
     public void switchNativeView() {
         switchContext("NATIVE_APP");
 //        try {
-//            Set<String> contextNames = ((SupportsContextSwitching) driver).getContextHandles();
+//            Set<String> contextNames = ((SupportsContextSwitching) getDriver()).getContextHandles();
 //            for (String contextName : contextNames) {
 //                if (contextName.contains("NATIVE_APP")) {
-//                    ((SupportsContextSwitching) driver).context(contextName);
+//                    ((SupportsContextSwitching) getDriver()).context(contextName);
 //                    break;
 //                }
 //            }
-//            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+//            getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -201,28 +204,28 @@ public class CommonNativeWrappers {
             switch (locator) {
                 case "id":
 //                    For Native application
-                    return driver.findElement(AppiumBy.id(locValue));
+                    return getDriver().findElement(AppiumBy.id(locValue));
 //                    For Hybrid application
-//                    return driver.findElement(AppiumBy.xpath("//*[@resource-id='" + locValue + "' or @id='" + locValue + "']"));
+//                    return getDriver().findElement(AppiumBy.xpath("//*[@resource-id='" + locValue + "' or @id='" + locValue + "']"));
                 case "name":
 //                    For Native application
-//                    return driver.findElement(AppiumBy.name(locValue));
+//                    return getDriver().findElement(AppiumBy.name(locValue));
 //                    For Hybrid application
-                    return driver.findElement(AppiumBy.xpath("//*[@name='" + locValue + "']"));
+                    return getDriver().findElement(AppiumBy.xpath("//*[@name='" + locValue + "']"));
                 case "className":
-                    return driver.findElement(AppiumBy.className(locValue));
+                    return getDriver().findElement(AppiumBy.className(locValue));
                 case "link":
-                    return driver.findElement(AppiumBy.linkText(locValue));
+                    return getDriver().findElement(AppiumBy.linkText(locValue));
                 case "partialLink":
-                    return driver.findElement(AppiumBy.partialLinkText(locValue));
+                    return getDriver().findElement(AppiumBy.partialLinkText(locValue));
                 case "tag":
-                    return driver.findElement(AppiumBy.tagName(locValue));
+                    return getDriver().findElement(AppiumBy.tagName(locValue));
                 case "css":
-                    return driver.findElement(AppiumBy.cssSelector(locValue));
+                    return getDriver().findElement(AppiumBy.cssSelector(locValue));
                 case "xpath":
-                    return driver.findElement(AppiumBy.xpath(locValue));
+                    return getDriver().findElement(AppiumBy.xpath(locValue));
                 case "accessibilityId":
-                    return driver.findElement(AppiumBy.accessibilityId(locValue));
+                    return getDriver().findElement(AppiumBy.accessibilityId(locValue));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -234,7 +237,7 @@ public class CommonNativeWrappers {
     public long takeScreenShot() {
         long number = (long) Math.floor(Math.random() * 900000000L) + 10000000L;
         try {
-            File srcFile = driver.getScreenshotAs(OutputType.FILE);
+            File srcFile = getDriver().getScreenshotAs(OutputType.FILE);
             FileUtils.copyFile(srcFile, new File(System.getProperty("user.dir") + File.separator + "images" + File.separator + number + ".png"));
         } catch (WebDriverException e) {
             e.printStackTrace();
@@ -273,7 +276,7 @@ public class CommonNativeWrappers {
             sequence.addAction(input.createPointerDown(MouseButton.LEFT.asArg()));
             sequence.addAction(input.createPointerMove(Duration.ofSeconds(1), Origin.viewport(), endX, endY));
             sequence.addAction(input.createPointerUp(MouseButton.LEFT.asArg()));
-            driver.perform(Collections.singletonList(sequence));
+            getDriver().perform(Collections.singletonList(sequence));
             return true;
         } catch (Exception e) {
             return false;
@@ -292,7 +295,7 @@ public class CommonNativeWrappers {
         doubleTap.addAction(finger.createPointerDown(MouseButton.LEFT.asArg()));
         doubleTap.addAction(new Pause(finger, Duration.ofMillis(100)));
         doubleTap.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
-        driver.perform(Collections.singletonList(doubleTap));
+        getDriver().perform(Collections.singletonList(doubleTap));
     }
 
     // To long press in application
@@ -303,13 +306,13 @@ public class CommonNativeWrappers {
         longPress.addAction(finger.createPointerDown(MouseButton.LEFT.asArg()));
         longPress.addAction(new Pause(finger, Duration.ofMillis(2000)));
         longPress.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
-        driver.perform(Collections.singletonList(longPress));
+        getDriver().perform(Collections.singletonList(longPress));
     }
 
     // To pinch in application
     public void pinchInApp() {
-        int maxY = driver.manage().window().getSize().getHeight();
-        int maxX = driver.manage().window().getSize().getWidth();
+        int maxY = getDriver().manage().window().getSize().getHeight();
+        int maxX = getDriver().manage().window().getSize().getWidth();
         PointerInput finger1 = new PointerInput(Kind.TOUCH, "finger1");
         Sequence a = new Sequence(finger1, 1);
         a.addAction(finger1.createPointerMove(Duration.ZERO, Origin.viewport(), (int) (maxX * 0.75),
@@ -326,13 +329,13 @@ public class CommonNativeWrappers {
         b.addAction(finger2.createPointerMove(Duration.ofSeconds(1), Origin.viewport(), (int) (maxX * 0.5),
                 (int) (maxY * 0.5)));
         b.addAction(finger2.createPointerUp(MouseButton.LEFT.asArg()));
-        driver.perform(Arrays.asList(a, b));
+        getDriver().perform(Arrays.asList(a, b));
     }
 
     // To zoom in application
     public void zoomInApp() {
-        int maxY = driver.manage().window().getSize().getHeight();
-        int maxX = driver.manage().window().getSize().getWidth();
+        int maxY = getDriver().manage().window().getSize().getHeight();
+        int maxX = getDriver().manage().window().getSize().getWidth();
         PointerInput finger1 = new PointerInput(Kind.TOUCH, "lokesh-finger1");
         Sequence a = new Sequence(finger1, 1);
         a.addAction(finger1.createPointerMove(Duration.ofSeconds(0), Origin.viewport(), (int) (maxX * 0.5),
@@ -349,7 +352,7 @@ public class CommonNativeWrappers {
         b.addAction(finger2.createPointerMove(Duration.ofSeconds(1), Origin.viewport(), (int) (maxX * 0.25),
                 (int) (maxY * 0.75)));
         b.addAction(finger2.createPointerUp(MouseButton.LEFT.asArg()));
-        driver.perform(Arrays.asList(a, b));
+        getDriver().perform(Arrays.asList(a, b));
     }
 
     // To scroll up in application
@@ -373,7 +376,7 @@ public class CommonNativeWrappers {
     }
 
     private boolean swipeUpInApp() {
-        Dimension size = driver.manage().window().getSize();
+        Dimension size = getDriver().manage().window().getSize();
         int startX = (int) (size.getWidth() * 0.5);
         int startY = (int) (size.getHeight() * 0.8);
         int endX = (int) (size.getWidth() * 0.5);
@@ -383,7 +386,7 @@ public class CommonNativeWrappers {
 
     // To scroll down in application
     private boolean swipeDownInApp() {
-        Dimension size = driver.manage().window().getSize();
+        Dimension size = getDriver().manage().window().getSize();
         int startX = (int) (size.getWidth() * 0.5);
         int startY = (int) (size.getHeight() * 0.2);
         int endX = (int) (size.getWidth() * 0.5);
@@ -393,7 +396,7 @@ public class CommonNativeWrappers {
 
     // To scroll left in application
     private boolean swipeLeftInApp() {
-        Dimension size = driver.manage().window().getSize();
+        Dimension size = getDriver().manage().window().getSize();
         int startX = (int) (size.getWidth() * 0.8);
         int startY = (int) (size.getHeight() * 0.5);
         int endX = (int) (size.getWidth() * 0.2);
@@ -403,7 +406,7 @@ public class CommonNativeWrappers {
 
     // To scroll right in application
     private boolean swipeRightInApp() {
-        Dimension size = driver.manage().window().getSize();
+        Dimension size = getDriver().manage().window().getSize();
         int startX = (int) (size.getWidth() * 0.2);
         int startY = (int) (size.getHeight() * 0.5);
         int endX = (int) (size.getWidth() * 0.8);
@@ -520,9 +523,9 @@ public class CommonNativeWrappers {
 
     // To close all the application opened in this session
     public void closeApp() {
-        if (driver != null) {
+        if (getDriver() != null) {
             try {
-                driver.quit();
+                getDriver().quit();
             } catch (Exception ignored) {
             }
         }
@@ -530,13 +533,13 @@ public class CommonNativeWrappers {
 
     // To set portrait orientation
     public boolean setPortraitOrientation() {
-        ((SupportsRotation) driver).rotate(ScreenOrientation.PORTRAIT);
+        ((SupportsRotation) getDriver()).rotate(ScreenOrientation.PORTRAIT);
         return true;
     }
 
     // To set landscape orientation
     public boolean setLandscapeOrientation() {
-        ((SupportsRotation) driver).rotate(ScreenOrientation.LANDSCAPE);
+        ((SupportsRotation) getDriver()).rotate(ScreenOrientation.LANDSCAPE);
         return true;
     }
 
@@ -545,10 +548,10 @@ public class CommonNativeWrappers {
     public void hideKeyboard() {
         if (isKeyboardShown()) {
             try {
-                ((HidesKeyboard) driver).hideKeyboard();
+                ((HidesKeyboard) getDriver()).hideKeyboard();
             } catch (Exception e) {
-                if (driver.getCapabilities().getPlatformName().toString().equalsIgnoreCase("iOS")) {
-                    String context = ((SupportsContextSwitching) driver).getContext();
+                if (getDriver().getCapabilities().getPlatformName().toString().equalsIgnoreCase("iOS")) {
+                    String context = ((SupportsContextSwitching) getDriver()).getContext();
                     assert context != null;
                     boolean isNative = context.equalsIgnoreCase("NATIVE_APP");
                     if (!isNative) {
@@ -566,12 +569,12 @@ public class CommonNativeWrappers {
     }
 
     public boolean isKeyboardShown() {
-        return ((HasOnScreenKeyboard) driver).isKeyboardShown();
+        return ((HasOnScreenKeyboard) getDriver()).isKeyboardShown();
     }
 
     // To get orientation set in the application
     public String getOrientation() {
-        return ((SupportsRotation) driver).getOrientation().toString();
+        return ((SupportsRotation) getDriver()).getOrientation().toString();
     }
 
     // To enter data in web element
@@ -608,12 +611,12 @@ public class CommonNativeWrappers {
 
     // To switch to another application installed in device
     public void activateOrRelaunchApp(String bundleIdOrAppPackage) {
-        ((InteractsWithApps) driver).activateApp(bundleIdOrAppPackage);
+        ((InteractsWithApps) getDriver()).activateApp(bundleIdOrAppPackage);
     }
 
     // To close the application installed in device
     public void terminateOrStopRunningApp(String bundleIdOrAppPackage) {
-        ((InteractsWithApps) driver).terminateApp(bundleIdOrAppPackage);
+        ((InteractsWithApps) getDriver()).terminateApp(bundleIdOrAppPackage);
     }
 
     // Locators ENUM

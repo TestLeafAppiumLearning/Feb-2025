@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
+    <parameter name="appPackage" value="com.testleaf.leaforg"></parameter>
+    <parameter name="appActivity" value="com.testleaf.leaforg.MainActivity"></parameter>
+    <parameter name="app" value="/apks/leaforg.apk"></parameter>
     <test verbose="2" preserve-order="true" name="phone1">
         <classes>
-            <class name="testCases.TC001">
-                <methods>
-                    <include name="runCode"/>
-                </methods>
-            </class>
-            <class name="testCases.TC002">
-                <methods>
-                    <include name="runCode"/>
-                </methods>
-            </class>
+            <class name="testRunner.TestRunner"/>
         </classes>
     </test>
 </suite>
