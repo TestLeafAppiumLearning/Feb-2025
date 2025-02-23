@@ -1,0 +1,66 @@
+Mandatory Capabilities in iOS
+
+Mandatory Capabilities to create a session
+platformName --> iOS
+appium:automationName --> XCUITest
+appium:udid --> (Optional but recommended) Unique Device Identifer
+
+Mandatory Capabilities to install the given app and then create a session
+platformName --> iOS
+appium:automationName --> XCUITest
+appium:app --> Complete file path of the app installer
+appium:udid --> (Optional but recommended) Unique Device Identifer
+
+Mandatory Capabilities to launch the app that is already installed and then create a session
+platformName --> iOS
+appium:automationName --> XCUITest
+appium:bundleId --> App bundle name provided by the developer
+appium:app (Optional but recommended) --> Complete file path of the app installer
+appium:udid --> (Optional but recommended) Unique Device Identifer
+
+Mandatory Capabilities to create a session in browser
+platformName --> iOS
+appium:automationName --> XCUITest
+appium:browserName --> Safari
+appium:udid --> (Optional but recommended) Unique Device Identifer
+
+--------------------------In Parallel---------------------------------
+Mandatory Capabilities to create a session In Parallel
+platformName --> iOS
+appium:automationName --> XCUITest
+appium:udid --> Unique Device Identifer
+appium:wdaLocalPort --> Any free port (refers to the UiAutomation Server/Client in local)
+appium:mjpegServerPort --> To capture videos specific to the session (Not required)
+appium:deviceName --> Simulator name (needed only for Simulator)
+appium:platformVersion --> iOS version of the device (needed only for Simulator)
+
+Mandatory Capabilities to install the given app and then create a session
+platformName --> iOS
+appium:automationName --> XCUITest
+appium:app --> Complete file path of the app installer
+appium:udid --> Unique Device Identifer
+appium:wdaLocalPort --> Any free port (refers to the UiAutomation Server/Client in local)
+appium:mjpegServerPort --> To capture videos specific to the session (Not required)
+appium:deviceName --> Simulator name (needed only for Simulator)
+appium:platformVersion --> iOS version of the device (needed only for Simulator)
+
+Mandatory Capabilities to launch the app that is already installed and then create a session
+platformName --> iOS
+appium:automationName --> XCUITest
+appium:bundleId --> App bundle name provided by the developer
+appium:app (Optional but recommended) --> Complete file path of the app installer
+appium:udid --> Unique Device Identifer
+appium:wdaLocalPort --> Any free port (refers to the UiAutomation Server/Client in local)
+appium:mjpegServerPort --> To capture videos specific to the session (Not required)
+appium:deviceName --> Simulator name (needed only for Simulator)
+appium:platformVersion --> iOS version of the device (needed only for Simulator)
+
+Mandatory Capabilities to create a session in browser
+platformName --> iOS
+appium:automationName --> XCUITest
+appium:browserName --> Safari
+appium:udid --> Unique Device Identifer
+appium:wdaLocalPort --> Any free port (refers to the UiAutomation Server/Client in local)
+appium:mjpegServerPort --> To capture videos specific to the session (Not required)
+appium:deviceName --> Simulator name (needed only for Simulator)
+appium:platformVersion --> iOS version of the device (needed only for Simulator)
