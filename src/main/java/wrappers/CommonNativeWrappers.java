@@ -206,9 +206,9 @@ public class CommonNativeWrappers {
 //                    return driver.findElement(AppiumBy.xpath("//*[@resource-id='" + locValue + "' or @id='" + locValue + "']"));
                 case "name":
 //                    For Native application
-//                    return driver.findElement(AppiumBy.name(locValue));
+                    return driver.findElement(AppiumBy.name(locValue));
 //                    For Hybrid application
-                    return driver.findElement(AppiumBy.xpath("//*[@name='" + locValue + "']"));
+//                    return driver.findElement(AppiumBy.xpath("//*[@name='" + locValue + "']"));
                 case "className":
                     return driver.findElement(AppiumBy.className(locValue));
                 case "link":
